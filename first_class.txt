@@ -1,0 +1,9 @@
+a = f(wp +b)
+a - output
+f - activation function
+	hardlim (step signal)
+	hardlims (simetirc step signal)
+	purelin (the mother line)
+w - synaptic weight
+p - input
+b - bias (offset)
