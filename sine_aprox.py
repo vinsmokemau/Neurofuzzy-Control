@@ -10,32 +10,33 @@ logsig = nl.trans.LogSig()
 
 p = np.linspace(-2, 2)
 g = 1 + np.sin((np.pi/4)*p)
-w1 = np.random.rand(1,2)
+w1 = np.random.rand(2,1)
 b1 = np.random.rand(2,1)
 w2 = np.random.rand(1,2)
 b2 = np.random.rand(1,1)
-
-print("w1: {}\n".format(w1))
-print("b1: {}\n".format(b1))
-print("w2: {}\n".format(w2))
-print("b2: {}\n".format(b2))
+alpha = 0.1
 
 epocks = int(input("Enter number of epocks: "))
 
+a2_list = []
+
 for epock in range(epocks):
     for id_p in range(p.size):
-        a1 = logsig(np.dot(w1,p[id_p].T)+b1)
+        a1 = logsig(np.dot(w1,p[id_p])+b1)
         a2 = purelin(np.dot(w2,a1)+b2)
         e = g[id_p] - a2
-        s2 = -2*(e)
-        s1 = np.array([
-                       [np.dot((1 - a1),a1), 0],
-                       [0, np.dot((1-a2),a2)]
-                       ])
-        s1 = np.dot(s1, w2.T)*s2
+        s2 = np.dot(-2,(g[id_p] - a2))
+        s1 = np.array([[np.dot((1 - a1[0]),a1[0]), 0],
+                       [0, np.dot((1-a2[0]),a2[0])]])
+        s1 = np.dot(np.dot(s1, w2.T),s2)
+        w1 = w1 - alpha*s1*p[id_p]
+        b1 = b1 - alpha*s1
+        w2 = w2 - alpha*s2*a1.T
+        b2 = b2 - alpha*s2
+        if epock == epocks - 1:
+            a2_list.append(a2[0][0])
 
-
-print("a1: {}\n".format(a1))
-print("a2: {}\n".format(a2))
-print("s1: {}\n".format(s1))
-print("s2: {}\n".format(s2))
+plt.figure()
+plt.plot(p, g, 'b')
+plt.plot(p, a2_list, 'g')
+plt.show()
