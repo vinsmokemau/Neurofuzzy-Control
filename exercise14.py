@@ -38,39 +38,6 @@ for i in range(10):
 
 plt.figure("Exercise 14")
 
-plt.subplot(3, 2, 1)
-plt.title("EEG Signal")
-plt.plot(t, s)
-plt.axis('off')
-
-plt.subplot(3, 2, 2)
-plt.title("Signal + Noise")
-plt.plot(t, tm)
-plt.axis('off')
-
-plt.subplot(3, 2, 3)
-plt.title("60Hz Input")
-plt.plot(t, v)
-plt.axis('off')
-
-plt.subplot(3, 2, 4)
-plt.title("Error")
-plt.plot(t, e)
-plt.axis('off')
-
-plt.subplot(3, 2, 5)
-plt.title("Noise Path (m)")
-plt.plot(t, m)
-plt.axis('off')
-
-plt.subplot(3, 2, 6)
-plt.title("Output Signal")
-f = tm - e
-plt.plot(t, f)
-plt.axis('off')
-
-
-plt.figure("Results")
 plt.plot(t, s, 'b')
 plt.plot(t, e, 'y')
 
