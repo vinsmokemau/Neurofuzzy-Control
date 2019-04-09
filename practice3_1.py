@@ -18,12 +18,12 @@ p = p.T
 s = 1
 t = np.array([1, 1, 1, 1, -1, -1, -1, -1])
 
-w1=np.random.rand(3,2)
-b1=np.random.rand(3,1)
-w2=np.random.rand(1,3)
+w1=np.random.rand(2,2)
+b1=np.random.rand(2,1)
+w2=np.random.rand(1,2)
 b2=np.random.rand(1,1)
 
-ea = np.zeros(p.shape[0])
+a2_list = []
 
 for epoch in range(epochs):
     for id_p in range(p.shape[0]):
@@ -33,24 +33,16 @@ for epoch in range(epochs):
         a1 = logsig(np.dot(w1,pn)+b1)
         a2 = purelin(np.dot(w2,a1)+b2)
         e = t[id_p] - a2
-        f1= (1-a1)*a1
-        f2 = 1
-        f11 = f1[0]
-        f12 = f1[1]
-        f13 = f1[2]
-        fd1 = np.append(np.array([0, 0]), f11)
-        fd2 = np.append(np.array([0]), f12)
-        fd2 = np.append(fd2, np.array([0]))
-        fd3 = np.append(f13, np.array([0, 0]))
-        fd = np.array([fd1, fd2, fd3])
-        fd2 = 1
-        s2 = -2*fd2*e
-        s1 = np.dot(fd,np.dot((w2).T,s2))
+        s2 = np.dot(-2,(t[id_p] - a2))
+        s1 = np.array([[np.dot((1 - a1[0]),a1[0]), 0],
+                       [0, np.dot((1-a2[0]),a2[0])]])
+        s1 = np.dot(np.dot(s1, w2.T),s2)
+        w1 = w1 - alpha*s1*p[id_p]
+        b1 = b1 - alpha*s1
         w2 = w2 - alpha*s2*a1.T
         b2 = b2 - alpha*s2
-        w1 = w1 - alpha*s1*pn.T
-        b1 = b1 - alpha*s1
-        ea[id_p] = a2[0][0]
+        if epoch == epochs - 1:
+            a2_list.append(a2[0][0])
 
 plt.figure()
 
@@ -65,6 +57,7 @@ for x in range(60):
         if (a2[0][0]<0):
             plt.plot([x], [j], 'ro')
 
-plt.plot([2, 5, 4, 5], [1, 3, 4, 2], 'w*')
-plt.plot([3, 2, 3, 2], [3, 3, 6, 4], 'k*')
+plt.plot([2, 5, 4, 5], [1, 3, 4, 2], 'k*')
+plt.plot([3, 2, 3, 2], [3, 3, 6, 4], 'w*')
 plt.show()
+                        
