@@ -8,7 +8,7 @@ logsig = nl.trans.LogSig()
 
 alpha = 0.01
 
-epochs = 350
+epochs = 1000
 x=np.array([2, 5, 4, 5, 3, 2, 3, 2])
 y=np.array([1, 3, 4, 2, 3, 3, 6, 4])
 

@@ -1,7 +1,6 @@
-# unnecessary comment
-100 2 360 650000
-100.dat 212 200 11 1024 995 -22131 0 MLII
-
-100.dat 212 200 11 1024 1011 20052 0 V5
+100m 1 360 3600
+100m.mat 16+192 200/mV 11 0 -13 -15213 0 V5
 # 69 M 1085 1629 x1
 # Aldomet, Inderal
+#Creator: wfdb2mat
+#Source: record mitdb/100
