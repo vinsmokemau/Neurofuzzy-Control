@@ -1,3 +1,9 @@
+import wfdb
+
+ 
+"""wfdb.plot_wfdb(record=record, title='Record 100 from Physionet Challenge 2015') 
+display(record.__dict__)"""
+
 """Exercise 14."""
 import numpy as np
 import neurolab as nl
@@ -14,7 +20,7 @@ step = 1 / fs
 t = np.linspace(0, 1, 1000)
 v = 1.2 * np.sin(2 * np.pi * f * t)
 m = (0.12 * np.sin(2 * np.pi * f * t)) + (np.pi / 2)
-s = 0.1 * np.random.rand(m.shape[0])
+s = wfdb.rdrecord('100')
 tm = s + m
 v1 = np.append(np.array([0]), v[:len(v) - 1])
 
